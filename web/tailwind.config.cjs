@@ -3,6 +3,11 @@ module.exports = {
   content: ['./src/**/*.tsx', './index.html'],
   theme: {
     extend: {
+      
+      fontFamily: {
+       sans: ['Inter', 'sans-serif'],
+      },
+
       backgroundImage: {
        galaxy: "url('/background-galaxy.png')",
                 'galaxy-gradient':
