@@ -1,6 +1,6 @@
+import express from 'express'
 import { PrismaClient } from '@prisma/client'
 //verção module
-import express, { query, request, response } from 'express';
 
 const app = express();
 const prisma = new PrismaClient({
@@ -8,8 +8,17 @@ const prisma = new PrismaClient({
 })
 
 app.get('/games', async (request, response) =>{
-   const games = await prisma.game.findMany()
+   const games = await prisma.game.findMany({
+      include:{
+         _count:{
+            select:{
+               ads:true,
+            }
+         }
+      }
+   })
    return response.json(games)
+   console.log(games)
 })
 
 app.post('/ads', (request, response) =>{
