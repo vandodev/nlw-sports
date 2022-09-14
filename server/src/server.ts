@@ -2,12 +2,24 @@
 //const express = require('express');
 
 //verção module
-import express from 'express';
+import express, { request, response } from 'express';
 
 const app = express();
 
-app.get('/ads', (request, response) => {
-   // response.send("Rpta ads");
+app.get('/games', (request, response) =>{
+   return response.json([])
+})
+
+app.post('/ads', (request, response) =>{
+   return response.status(201).json([])
+})
+
+app.get('/games/:id/ads', (request, response) => {
+   const gamesId = request.params.id;
+   //get https://localhost:3333/games/1/ads
+
+   return response.send(gamesId);
+
    response.json([
     {id:1 , anuncio:" Anúncio 1"},
     {id:2 , anuncio:" Anúncio 2"},
@@ -15,6 +27,11 @@ app.get('/ads', (request, response) => {
     {id:4 , anuncio:" Anúncio 4"},
     {id:555 , anuncio:" Anúncio 4"},
    ])
+});
+
+app.get('/ads/id:/discord', (request, response) => {
+   // const adsId = request.params.id;
+   response.json([ ])
 });
 
 app.listen(3333)
