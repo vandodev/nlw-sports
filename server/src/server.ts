@@ -47,7 +47,12 @@ const ads = await prisma.ad.findMany({
       createAt: 'desc',
    }
 })
-   response.json(ads)
+   response.json(ads.map(ad =>{
+      return {
+         ...ads,
+         weekDays: ad.weekDays.split(',')
+      }
+   }))
 });
 
 app.get('/ads/id:/discord', (request, response) => {
