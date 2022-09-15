@@ -25,19 +25,29 @@ app.post('/ads', (request, response) =>{
    return response.status(201).json([])
 })
 
-app.get('/games/:id/ads', (request, response) => {
-   const gamesId = request.params.id;
+app.get('/games/:id/ads',async (request, response) => {
+   const gameId = request.params.id;
    //get https://localhost:3333/games/1/ads
 
-   return response.send(gamesId);
-
-   response.json([
-    {id:1 , anuncio:" Anúncio 1"},
-    {id:2 , anuncio:" Anúncio 2"},
-    {id:3 , anuncio:" Anúncio 3"},
-    {id:4 , anuncio:" Anúncio 4"},
-    {id:555 , anuncio:" Anúncio 4"},
-   ])
+const ads = await prisma.ad.findMany({
+   select:{
+      id:true,
+      name:true,
+      weekDays:true,
+      useVoiceChannel:true,
+      yearsPlaying:true,
+      hourStart:true,
+      hourEnd:true,
+   },
+   where:{
+      // gameId: gamesId
+      gameId,
+   },
+   orderBy:{
+      createAt: 'desc',
+   }
+})
+   response.json(ads)
 });
 
 app.get('/ads/id:/discord', (request, response) => {
