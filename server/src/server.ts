@@ -1,5 +1,6 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
+import {  convertTimeToMinutes } from './utils/time';
 //verção module
 
 const app = express();
@@ -24,21 +25,21 @@ app.get('/games', async (request, response) =>{
 
 app.post('/games/:id/ads', async (request, response) =>{
     const gameId = request.params.id
-    const body = request.body
-     const ad = await prisma.ad.create({
+    const body: any = request.body
+      const ad = await prisma.ad.create({
         data: {
-         gameId,
-         name: body.name,
-         discord: body.discord,
-         weekDays: body.weekDays.join(','),
-         useVoiceChannel: body.useVoiceChannel,
-         yearsPlaying: body.yearsPlaying,
-         hourStart: body.hourStart,
-         hourEnd: body.hourEnd,
-      }
-   })
+            gameId,
+            name: body.name,
+            yearsPlaying: body.yearsPlaying,
+            discord: body.discord,
+            weekDays: body.weekDays.join(','),
+            hourStart: convertTimeToMinutes(body.hourStart),
+            hourEnd: convertTimeToMinutes(body.hourEnd),
+            useVoiceChannel: body.useVoiceChannel,
+        },
+    })
 
-   return response.status(201).json(body)
+    return response.json(ad).status(201)
 })
 
 app.get('/games/:id/ads',async (request, response) => {
