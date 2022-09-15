@@ -55,9 +55,20 @@ const ads = await prisma.ad.findMany({
    }))
 });
 
-app.get('/ads/id:/discord', (request, response) => {
-   // const adsId = request.params.id;
-   response.json([ ])
+app.get('/ads/:id/discord', async (request, response) => {
+   const adId = request.params.id;
+   const ad = await prisma.ad.findFirstOrThrow({
+      select:{
+         discord:true,
+      },
+      where:{
+         id:adId
+      }  
+   })
+
+   response.json({
+      discord:ad.discord
+   })
 });
 
 app.listen(3333)
