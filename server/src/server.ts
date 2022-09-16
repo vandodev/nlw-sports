@@ -1,6 +1,6 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
-import {  convertTimeToMinutes } from './utils/time';
+import {  convertMinutesToTime, convertTimeToMinutes } from './utils/time';
 //verção module
 
 const app = express();
@@ -66,8 +66,10 @@ const ads = await prisma.ad.findMany({
 })
    response.json(ads.map(ad =>{
       return {
-         ...ads,
-         weekDays: ad.weekDays.split(',')
+         ...ad,
+         weekDays: ad.weekDays.split(','),
+         hourStart:convertMinutesToTime(ad.hourStart),
+         hourEnd:convertMinutesToTime(ad.hourEnd),
       }
    }))
 });
