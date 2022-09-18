@@ -22,7 +22,6 @@ export function Home() {
         fetch('http://192.168.1.5:3333/games')
         .then(response => response.json())
         .then(data =>{
-        // console.log(data)
         setGames(data);
      })
     },[])
