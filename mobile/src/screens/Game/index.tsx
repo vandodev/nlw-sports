@@ -8,12 +8,17 @@ import { THEME } from '../../theme';
 import { Entypo } from '@expo/vector-icons';
 import logoImage from '../../assets/logo-nlw-esports.png';
 import { Heading } from '../../components/Heading';
+import { DuoCard } from '../../components/DuoCard';
+import { useState } from 'react';
 
 export function Game() {
     const route = useRoute();
     const navigation = useNavigation();
     const game = route.params as GameParams;
-    console.log(game)
+   
+    console.log(game);
+
+ 
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -44,6 +49,9 @@ export function Game() {
                   title={game.title}
                   subtitle={'Conecta-te e começa a jogar!'}
                 /> 
+
+                <DuoCard />
+                
             </SafeAreaView>
         </Background>
     );
