@@ -20,7 +20,7 @@ interface Props {
   data: DuoCardProps;
 }
 
-export function DuoCard({ data}: Props) {
+export function DuoCard({ data }: Props) {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
   return (
     <View style={styles.container}>
@@ -45,7 +45,7 @@ export function DuoCard({ data}: Props) {
       />
 
       <TouchableOpacity
-      style={styles.button}
+        style={styles.button}
       >
         <GameController color={THEME.COLORS.TEXT} size={20} />
         <Text style={styles.buttonTitle}>Conectar</Text>

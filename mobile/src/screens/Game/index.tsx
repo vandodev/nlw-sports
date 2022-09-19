@@ -29,7 +29,7 @@ export function Game() {
         .then((response) => response.json())
         .then((data) => {
             setDuos(data);
-            console.log(data)
+            // console.log(data)
         });
     }, []);
 
@@ -61,10 +61,21 @@ export function Game() {
                 
                 <FlatList 
                 data={duos}
-                keyExtractor={item => item.id}
-                renderItem={({item})=>(
-                    <DuoCard data={item}/>
+                    keyExtractor={item => item.id}
+                    renderItem={({item})=>(
+                        <DuoCard 
+                            data={item}                            
+                        />
                 )}
+                    horizontal
+                    style={styles.containerList}
+                    contentContainerStyle={styles.contentList}
+                    showsHorizontalScrollIndicator={false}
+                    ListEmptyComponent={() => (
+                        <Text style={styles.emptyListText}>
+                            Ainda não há Duos para este jogo
+                        </Text>
+                    )}
                 />
                 
                 
